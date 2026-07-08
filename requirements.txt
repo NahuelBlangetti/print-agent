@@ -5,7 +5,7 @@ pydantic-settings==2.5.2
 python-multipart==0.0.9
 
 # Windows only (impresion RAW / enumeracion de impresoras instaladas)
-pywin32==306; sys_platform == "win32"
+pywin32==311; sys_platform == "win32"
 
 # Ubuntu/Linux only (impresion RAW / enumeracion de impresoras via CUPS)
 # Requiere el paquete de sistema libcups2-dev para compilar (ver README).

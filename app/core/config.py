@@ -4,10 +4,17 @@ Configuracion central del Print Agent.
 Toda la configuracion se puede sobreescribir mediante variables de entorno
 o un archivo .env ubicado en config/.env
 """
+import sys
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+if getattr(sys, "frozen", False):
+    # Empaquetado con PyInstaller: __file__ apunta a la carpeta temporal
+    # de extraccion (_MEIPASS), no a donde esta el .exe. Usamos la carpeta
+    # del ejecutable para que config/.env y logs/ vivan junto a el.
+    BASE_DIR = Path(sys.executable).resolve().parent
+else:
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
 LOG_DIR = BASE_DIR / "logs"
 CONFIG_DIR = BASE_DIR / "config"
 
