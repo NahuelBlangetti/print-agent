@@ -1,0 +1,15 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-multipart==0.0.9
+
+# Windows only (impresion RAW / enumeracion de impresoras instaladas)
+pywin32==306; sys_platform == "win32"
+
+# Ubuntu/Linux only (impresion RAW / enumeracion de impresoras via CUPS)
+# Requiere el paquete de sistema libcups2-dev para compilar (ver README).
+pycups==2.0.1; sys_platform == "linux"
+
+# Empaquetado como ejecutable (opcional, para build final)
+pyinstaller==6.10.0; sys_platform == "win32"
