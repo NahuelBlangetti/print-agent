@@ -26,8 +26,14 @@ def setup_logging() -> None:
 
     formatter = logging.Formatter(_LOG_FORMAT, datefmt=_DATE_FORMAT)
 
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setFormatter(formatter)
+    root_logger.handlers.clear()
+
+    # Empaquetado sin consola (PyInstaller --noconsole): sys.stdout es None,
+    # no hay a donde escribir.
+    if sys.stdout is not None:
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_handler.setFormatter(formatter)
+        root_logger.addHandler(console_handler)
 
     log_path = settings.log_dir / settings.log_filename
     file_handler = RotatingFileHandler(
@@ -37,9 +43,6 @@ def setup_logging() -> None:
         encoding="utf-8",
     )
     file_handler.setFormatter(formatter)
-
-    root_logger.handlers.clear()
-    root_logger.addHandler(console_handler)
     root_logger.addHandler(file_handler)
 
     _configured = True

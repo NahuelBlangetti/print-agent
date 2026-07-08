@@ -56,7 +56,10 @@ def run() -> None:
     """Permite ejecutar el agente con `python -m app.main`."""
     import uvicorn
 
-    uvicorn.run("app.main:app", host=settings.host, port=settings.port, reload=False)
+    # log_config=None: evitamos que uvicorn reconfigure el logging con su
+    # propio formatter (que asume una consola real via sys.stdout.isatty()).
+    # Ya tenemos nuestro logging propio configurado via setup_logging().
+    uvicorn.run("app.main:app", host=settings.host, port=settings.port, reload=False, log_config=None)
 
 
 if __name__ == "__main__":
